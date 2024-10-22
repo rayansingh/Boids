@@ -7,13 +7,13 @@
 #include <SDL2/SDL.h>
 #include "boid.h"
 
-#define SCREEN_WIDTH 1000
-#define SCREEN_HEIGHT 1000
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 600
 
 void init_boids();
 void kill_boids();
 void update();
-void update_boids();
+void update_boids(int t);
 void refresh(SDL_Renderer* renderer);
 void draw_boid(SDL_Renderer* renderer, Boid* boid);
 

@@ -19,6 +19,8 @@ int main() {
     
     uint8_t running = 1;
 
+    uint32_t ticker = 0;
+
     while(running) {
         SDL_Event event;
 
@@ -30,8 +32,10 @@ int main() {
         }
 
         usleep(10000);
-        update_boids();
+        update_boids(ticker);
         refresh(renderer);
+
+        ticker++;
     }
 
     kill_boids();

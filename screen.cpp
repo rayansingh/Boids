@@ -2,6 +2,7 @@
 //
 
 #include "screen.h"
+#include "SDL2/SDL_render.h"
 #include "boid.h"
 #include <iostream>
 
@@ -20,7 +21,7 @@ void kill_boids() {
 }
 
 void refresh(SDL_Renderer* renderer) {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderClear(renderer);
 
     for (int i = 0; i < NUM_BOIDS; i++) {
@@ -30,25 +31,35 @@ void refresh(SDL_Renderer* renderer) {
     SDL_RenderPresent(renderer);
 }
 
-void update_boids() {
-    // float total_x_vel = 0.0f;
-    // float total_y_vel = 0.0f;
+void update_boids(int t) {
 
-    for (int i = 0; i < NUM_BOIDS; i++) {
-        for (int j = i+1; j < NUM_BOIDS; j++) {
-            boids[i]->touch(boids[j]);
+    if (t%2 == 0) {
+        for (int i = 0; i < NUM_BOIDS; i++) {
+            boids[i]->seek();
+            boids[i]->avoid();
+            boids[i]->align();
         }
     }
+
     for (int i = 0; i < NUM_BOIDS; i++) {
         boids[i]->update_position();
-        // total_x_vel += boids[i]->x_vel;
-        // total_y_vel += boids[i]->y_vel;
     }
 
-    // std::cout<< sqrt(pow(total_x_vel,2) + pow(total_y_vel,2)) << std::endl;
 }
 
 void draw_boid(SDL_Renderer* renderer, Boid* boid) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, rand()%255);
-    SDL_RenderDrawPoint(renderer, boid->x_pos,boid->y_pos);
+    for (int i = 0; i < BOID_WIDTH; i++) {
+        for (int j = 0; j < BOID_WIDTH; j++) {
+
+            float px = boid->x_pos+static_cast<float>(i-(int)BOID_RADIUS);
+            float py = boid->y_pos+static_cast<float>(j-(int)BOID_RADIUS);
+
+            SDL_SetRenderDrawColor(renderer, 255, boid->a, 0, boid->a);
+
+            if (sqrt(pow(px-boid->x_pos,2)+pow(py-boid->y_pos,2)) < static_cast<float>(BOID_RADIUS)) SDL_RenderDrawPoint(renderer, px, py);
+
+            SDL_RenderDrawLine(renderer,boid->x_pos,boid->y_pos,boid->x_pos+2.0f*boid->x_vel,boid->y_pos+2.0f*boid->y_vel);
+ 
+        }
+    }
 }

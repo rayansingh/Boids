@@ -4,8 +4,24 @@
 #ifndef BOID_H
 #define BOID_H
 
-#define NUM_BOIDS 1000
-#define MAX_INFLUENCE_DISTANCE 50
+#define BOUNCY
+
+#define BOID_WIDTH 13
+#define BOID_RADIUS (BOID_WIDTH/2)
+
+#define NUM_BOIDS 200
+
+#define MAX_SEEK_DISTANCE 75
+#define MAX_AVOID_DISTANCE 20
+#define MAX_ALIGN_DISTANCE 75
+#define MAX_SPEED 5.0f
+
+#define SEEK_DAMPING 0.005f
+#define AVOID_DAMPING 0.05f
+#define ALIGN_DAMPING 0.01f
+#define BOUNCE_DAMPING 0.5f
+
+#include <cstdint>
 
 class Boid {
 public:
@@ -13,13 +29,15 @@ public:
     float y_pos;
     float x_vel;
     float y_vel;
-    float x_acc;
-    float y_acc;
+
+    uint8_t a;
 
     Boid();
     void update_position();
 
-    void touch(Boid *other);
+    void seek(); // Cohesion
+    void avoid(); // Separation
+    void align(); // Alignment
 };
 
 extern Boid* boids[NUM_BOIDS];
