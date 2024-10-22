@@ -1,0 +1,6 @@
+# Boid Simulation
+
+```
+make
+./boids
+```
