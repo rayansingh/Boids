@@ -54,7 +54,13 @@ void draw_boid(SDL_Renderer* renderer, Boid* boid) {
             float px = boid->x_pos+static_cast<float>(i-(int)BOID_RADIUS);
             float py = boid->y_pos+static_cast<float>(j-(int)BOID_RADIUS);
 
-            SDL_SetRenderDrawColor(renderer, 255, boid->a, 0, boid->a);
+
+            float magnitude = sqrtf(pow(boid->x_vel,2)+pow(boid->y_vel,2));
+
+            magnitude /= static_cast<float>(MAX_SPEED);
+
+            SDL_SetRenderDrawColor(renderer, magnitude*255, 255-magnitude*255, 100, boid->a);
+            
 
             if (sqrt(pow(px-boid->x_pos,2)+pow(py-boid->y_pos,2)) < static_cast<float>(BOID_RADIUS)) SDL_RenderDrawPoint(renderer, px, py);
 
