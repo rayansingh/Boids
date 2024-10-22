@@ -16,9 +16,9 @@
 #define MAX_ALIGN_DISTANCE 75
 #define MAX_SPEED 10.0f
 
-#define SEEK_DAMPING 0.005f
-#define AVOID_DAMPING 0.05f
-#define ALIGN_DAMPING 0.01f
+#define SEEK_DAMPING 0.03f
+#define AVOID_DAMPING 0.2f
+#define ALIGN_DAMPING 0.05f
 #define BOUNCE_DAMPING 0.5f
 
 #include <cstdint>

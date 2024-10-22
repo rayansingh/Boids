@@ -7,8 +7,8 @@
 #include <SDL2/SDL.h>
 #include "boid.h"
 
-#define SCREEN_WIDTH 600
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 1200
+#define SCREEN_HEIGHT 800
 
 void init_boids();
 void kill_boids();

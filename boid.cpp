@@ -24,13 +24,15 @@ void Boid::seek() {
     for (int i = 0; i < NUM_BOIDS; i++) {
         Boid* other = boids[i];
 
-        float distance_from = sqrt(pow(x_pos-other->x_pos,2) + pow(y_pos-other->y_pos,2)); 
+        if (this != other) {
+            float distance_from = sqrt(pow(x_pos-other->x_pos,2) + pow(y_pos-other->y_pos,2)); 
 
-        if (distance_from <= static_cast<float>(MAX_SEEK_DISTANCE)) {
-            avg_x_pos += other->x_pos;
-            avg_y_pos += other->y_pos;
+            if (distance_from <= static_cast<float>(MAX_SEEK_DISTANCE)) {
+                avg_x_pos += other->x_pos;
+                avg_y_pos += other->y_pos;
 
-            num_close++;
+                num_close++;
+            }
         }
     }  
 
@@ -53,13 +55,15 @@ void Boid::align() {
     for (int i = 0; i < NUM_BOIDS; i++) {
         Boid* other = boids[i];
 
-        float distance_from = sqrt(pow(x_pos-other->x_pos,2) + pow(y_pos-other->y_pos,2)); 
+        if (this != other) {
+            float distance_from = sqrt(pow(x_pos-other->x_pos,2) + pow(y_pos-other->y_pos,2)); 
 
-        if (distance_from <= static_cast<float>(MAX_ALIGN_DISTANCE)) {
-            avg_x_vel += other->x_pos;
-            avg_y_vel += other->y_pos;
+            if (distance_from <= static_cast<float>(MAX_ALIGN_DISTANCE)) {
+                avg_x_vel += other->x_vel;
+                avg_y_vel += other->y_vel;
 
-            num_close++;
+                num_close++;
+            }
         }
     }  
 
@@ -67,8 +71,8 @@ void Boid::align() {
         avg_x_vel /= static_cast<float>(num_close);
         avg_y_vel /= static_cast<float>(num_close);
 
-        x_vel += ALIGN_DAMPING * (avg_x_vel-x_pos);
-        y_vel += ALIGN_DAMPING * (avg_y_vel-y_pos);
+        x_vel += ALIGN_DAMPING * (avg_x_vel-x_vel);
+        y_vel += ALIGN_DAMPING * (avg_y_vel-y_vel);
     }
 
 }
@@ -81,11 +85,13 @@ void Boid::avoid() {
     for (int i = 0; i < NUM_BOIDS; i++) {
         Boid* other = boids[i];
 
-        float distance_from = sqrt(pow(x_pos-other->x_pos,2) + pow(y_pos-other->y_pos,2)); 
+        if (this != other) {
+            float distance_from = sqrt(pow(x_pos-other->x_pos,2) + pow(y_pos-other->y_pos,2)); 
 
-        if (distance_from <= static_cast<float>(MAX_AVOID_DISTANCE)) {
-            delta_x += x_pos - other->x_pos;
-            delta_y += y_pos - other->y_pos;
+            if (distance_from <= static_cast<float>(MAX_AVOID_DISTANCE)) {
+                delta_x += x_pos - other->x_pos;
+                delta_y += y_pos - other->y_pos;
+            }
         }
     }  
 
