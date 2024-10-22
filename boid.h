@@ -5,7 +5,7 @@
 #define BOID_H
 
 #define NUM_BOIDS 1000
-#define MAX_INFLUENCE_DISTANCE 10
+#define MAX_INFLUENCE_DISTANCE 50
 
 class Boid {
 public:
