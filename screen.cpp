@@ -21,7 +21,7 @@ void kill_boids() {
 }
 
 void refresh(SDL_Renderer* renderer) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 20, 255);
     SDL_RenderClear(renderer);
 
     for (int i = 0; i < NUM_BOIDS; i++) {
