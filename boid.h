@@ -6,7 +6,7 @@
 
 #define BOUNCY
 
-#define BOID_WIDTH 13
+#define BOID_WIDTH 5
 #define BOID_RADIUS (BOID_WIDTH/2)
 
 #define NUM_BOIDS 200
@@ -17,7 +17,7 @@
 #define MAX_SPEED 10.0f
 
 #define SEEK_DAMPING 0.03f
-#define AVOID_DAMPING 0.2f
+#define AVOID_DAMPING 0.12f
 #define ALIGN_DAMPING 0.05f
 #define BOUNCE_DAMPING 0.5f
 
